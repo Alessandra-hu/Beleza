@@ -1,0 +1,58 @@
+{# Inclui o template principal nesta página #}
+{% extends '_template.html' %}
+
+{# Bloco com conteúdo desta página #}
+{% block conteudo %}
+
+<h2>Lista de produtos</h2>
+
+<div class="lista">
+
+    {% for produto in produtos %}
+
+    <div class="item">
+        <a href="{{ produto.t_foto }}" target="_blank"><img src="{{ produto.t_foto }}" alt="{{ produto.t_nome }}"></a>
+        <div>
+            <a class="flutua-icone" href="/apaga/{{ produto.t_id }}" title="Apagar {{ produto.t_nome }}." onclick="return confirm('Term certeza que deseja apagar este produto?')">
+                <i class="fa-regular fa-trash-can fa-fw"></i>
+            </a>
+            <a class="flutua-icone" href="/edita/{{ produto.t_id }}" title="Editar {{ produto.t_nome }}.">
+                <i class="fa-solid fa-pen-to-square fa-fw"></i>
+            </a>
+            <h4>{{ produto.t_nome }}</h4>
+            {{ produto.t_descricao }}
+            <small>Local: {{ produto.t_localizacao }}</small>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% if acao == 'apagado' %}
+
+<dialog id="myDialog">
+    <h4>Oba!</h4>
+    <p>Seu produto foi apagado com sucesso!</p>
+    <form method="dialog">
+        <button onclick="window.history.pushState({}, '', '/')">OK</button>
+    </form>
+</dialog>
+<script>myDialog.showModal()</script>
+
+{% endif %}
+
+{% if acao == 'editado' %}
+
+<dialog id="myDialog">
+    <h4>Oba!</h4>
+    <p>Seu produto foi editado com sucesso!</p>
+    <form method="dialog">
+        <button onclick="window.history.pushState({}, '', '/')">OK</button>
+    </form>
+</dialog>
+<script>myDialog.showModal()</script>
+
+{% endif %}
+
+{% endblock %}

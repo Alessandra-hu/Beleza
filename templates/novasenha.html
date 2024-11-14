@@ -1,0 +1,93 @@
+{# Inclui o template principal nesta página #}
+{% extends '_template.html' %}
+
+{# Bloco com conteúdo desta página #}
+{% block conteudo %}
+
+<h2>Pedido de Senha</h2>
+
+{% if novasenha == '' %}
+
+<p>Sua senha atual não pode ser recuperada, porém, preencha os campos abaixo com os dados corretos para gerar uma nova
+    senha de acesso.</p>
+
+<form action="/novasenha" method="post" id="formNovasenha">
+
+    <p>
+        <label for="email">
+            Seu e-mail:
+            <span class="field-help" title="O endereço de e-mail com o qual você acessa o site."><i
+                    class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <input type="email" name="email" id="email" required>
+    </p>
+
+    <p>
+        <label for="nascimento">
+            Sua data de nascimento:
+            <span class="field-help" title="Sua data de nascimento no formato 'dd/mm/aaaa'."><i
+                    class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <input type="date" name="nascimento" id="nascimento" required>
+    </p>
+
+    <p>
+        <button type="submit">Enviar</button>
+    </p>
+
+</form>
+
+<hr>
+<ul>
+    <li>Lembrou da senha? <a href="/login">Faça login!</a></li>
+    <li>Não é cadastrado? <a href="/cadastro">Clique aqui!</a></li>
+</ul>
+
+{% else %}
+
+<p>Sua nova senha temporária está logo abaixo:
+
+<p class="novasenha">
+    <input class="novasenha" type="text" id="meuInput" value="{{ novasenha }}" readonly>
+    <button id="copiarBtn">Copiar</button>
+</p>
+
+<p>Lembre-se de anotar essa senha para uso futuro.</p>
+
+<p class="center"><button type="button" class="btnProfile" onclick="location.href='/login'">Fazer login</button></p>
+
+<script>
+    document.getElementById('copiarBtn').addEventListener('click', function () {
+        // Seleciona o campo de entrada de texto
+        const input = document.getElementById('meuInput');
+
+        // Seleciona o conteúdo do campo de entrada
+        input.select();
+        input.setSelectionRange(0, 99999); // Para dispositivos móveis
+
+        try {
+            // Executa o comando de cópia
+            document.execCommand('copy');
+            alert('Senha copiada para a área de transferência!');
+        } catch (err) {
+            console.error('Falha ao copiar o texto: ', err);
+            alert('Falha ao copiar a senha. Por favor, use Ctrl + C.');
+        }
+    });
+</script>
+
+{% endif %}
+
+{% if erro %}
+
+<dialog id="myDialog">
+    <h4>Oooops!</h4>
+    <p>Não encontrei você! Tente novamente ou cadastre-se.</p>
+    <form method="dialog"><button>OK</button></form>
+</dialog>
+<script>myDialog.showModal()</script>
+
+{% endif %}
+
+
+{% endblock %}

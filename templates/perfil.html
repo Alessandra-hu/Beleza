@@ -1,0 +1,37 @@
+{# Inclui o template principal nesta página #}
+{% extends '_template.html' %}
+
+{# Bloco com conteúdo desta página #}
+{% block conteudo %}
+
+<h2>Perfil de {{ usuario.pnome }}</h2>
+<p>Esses são os seus dados de usuário, cadastrados no site.</p>
+
+<h3 class="center">{{ usuario.nome }}<br><small>{{ usuario.email }}</small></h3>
+
+<ul class="userdata">
+    <li>Em: {{ usuario.databr }}</li>
+    <li>Nascimento: {{ usuario.nascimentobr }} ({{ usuario.idade }} anos)</li>
+    <li>{{ usuario.total }} trecos cadastrados</li>
+</ul>
+
+<p>Clique no botão abaixo para editar seu perfil ou alterar a senha:</p>
+<p><button class="btnProfile" type="button" onclick="location.href='/editaperfil'">Editar perfil</button></p>
+
+
+<p>Clique no botão abaixo para sair do aplicativo neste dispositivo:</p>
+<p><button class="btnLogout" type="button" onclick="location.href='/logout'">Encerrar sessão</button></p>
+
+<p>Clique no botão abaixo para encerrar sua conta no aplicativo. Lembre-se que sua coleção também será apagada!</p>
+<p><button class="btnSignout" type="button" id="btnSignout">Encerrar conta</button></p>
+
+<script>
+    // Monitora cliques no botão de apagar conta
+    btnSignout.addEventListener('click', (e) => {
+        if (confirm('Tem certeza que deseja apagar sua conta?\nTodos os seus trecos serão apagados também!'))
+            location.href = '/apagausuario'
+        return false
+    })
+</script>
+
+{% endblock %}

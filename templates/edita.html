@@ -1,0 +1,53 @@
+{% extends '_template.html' %}
+
+{% block conteudo %}
+
+<h2>Editando Treco</h2>
+
+
+<p>Os dados do treco estão listados abaixo. Altere somente os campos necessários.</p>
+
+<form action="/edita/{{ produto.t_id }}" method="post" id="formEdita">
+
+    <p>
+        <label for="foto">
+            URL da Foto:
+            <span class="field-help" title="URL da foto local ou na Internet que deve iniciar com 'http://' ou 'https://'."><i class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <input type="url" name="foto" id="foto" required placeholder="https://" value="{{ produto.t_foto }}">
+    </p>
+
+    <p>
+        <label for="nome">
+            Nome:
+            <span class="field-help" title="Nome que identifica o produto."><i class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <input type="text" name="nome" id="nome" required minlength="3" value="{{ produto.t_nome }}">
+    </p>
+
+    <p>
+        <label for="descricao">
+            Descrição:
+            <span class="field-help" title="Descrição completa e detalhada do produto."><i class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <textarea name="descricao" id="descricao" required minlength="5">{{ produto.t_descricao }}</textarea>
+    </p>
+
+    <p>
+        <label for="localizacao">
+            Localização:
+            <span class="field-help" title="Onde o produto está armazenado."><i class="fa-solid fa-circle-question"></i></span>
+        </label>
+        <input type="text" name="localizacao" id="localizacao" required minlength="2" value="{{ produto.t_localizacao }}">
+    </p>
+
+    <p>
+        <button type="submit">Salvar</button>
+    </p>
+
+
+
+</form>
+
+
+{% endblock %}
